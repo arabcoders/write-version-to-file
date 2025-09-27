@@ -12,7 +12,12 @@ log() {
     echo -e "\x1b[1;32m${1}\e[0m ${2}"
 }
 
-filename="/github/workspace/${1}"
+if [ -f "${1}" ]; then
+    filename="${1}"
+elif [ -f "${1#/}" ]; then
+    filename="${1#/}"
+else
+    filename="/github/workspace/${1}"
 
 if [ -z "${2}" ]; then
     placeholder="\${VERSION}"
