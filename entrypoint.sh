@@ -1,8 +1,6 @@
 #!/bin/sh
-set -eo pipefail
+set -e
 
-# Mark the workspace as a safe directory for Git
-git config --global --add safe.directory /github/workspace
 
 error() {
     echo -e "\x1b[1;31m${1}\e[0m ${2}"
@@ -14,10 +12,13 @@ log() {
 
 if [ -f "${1}" ]; then
     filename="${1}"
+    git config --global --add safe.directory $(git rev-parse --show-toplevel)
 elif [ -f "${1#/}" ]; then
     filename="${1#/}"
+    git config --global --add safe.directory $(git rev-parse --show-toplevel)
 else
     filename="/github/workspace/${1}"
+    git config --global --add safe.directory /github/workspace
 fi
 
 if [ -z "${2}" ]; then
