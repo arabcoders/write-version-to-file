@@ -18,6 +18,7 @@ elif [ -f "${1#/}" ]; then
     filename="${1#/}"
 else
     filename="/github/workspace/${1}"
+fi
 
 if [ -z "${2}" ]; then
     placeholder="\${VERSION}"
