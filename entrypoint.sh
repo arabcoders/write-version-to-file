@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 
+git config --global --add safe.directory /github/workspace
 
 error() {
     echo -e "\x1b[1;31m${1}\e[0m ${2}"
@@ -18,7 +19,6 @@ elif [ -f "${1#/}" ]; then
     git config --global --add safe.directory $(git rev-parse --show-toplevel)
 else
     filename="/github/workspace/${1}"
-    git config --global --add safe.directory /github/workspace
 fi
 
 if [ -z "${2}" ]; then
